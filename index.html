@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Board — Social Metrics</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #222;
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 2px solid #111;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .site-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c00;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .site-name:hover { text-decoration: underline; }
+
+  .tagline {
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .header-controls button {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.15s;
+  }
+
+  .header-controls button:hover {
+    background: #f0f0f0;
+    border-color: #999;
+  }
+
+  .header-controls button.active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+  .last-updated {
+    font-size: 10px;
+    color: #aaa;
+  }
+
+  /* ── Platform Grid ── */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  /* ── Platform Column ── */
+  .platform-col {
+    border-right: 1px solid #e0e0e0;
+    min-height: calc(100vh - 50px);
+  }
+
+  .platform-col:last-child { border-right: none; }
+
+  .platform-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    background: #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .platform-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .platform-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+  }
+
+  .platform-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .platform-handle {
+    font-size: 10px;
+    color: #c00;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .platform-handle:hover { text-decoration: underline; }
+
+  /* ── Live Counter ── */
+  .counter-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .counter-iframe-wrap {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .counter-iframe-wrap iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .live-badge {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaa;
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #34a853;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── Dark Mode ── */
+  body.dark { background: #111; color: #ccc; }
+  body.dark .header { border-bottom-color: #333; }
+  body.dark .site-name { color: #e44; }
+  body.dark .platform-col { border-right-color: #2a2a2a; }
+  body.dark .platform-header { background: #1a1a1a; border-bottom-color: #2a2a2a; }
+  body.dark .platform-name { color: #ddd; }
+  body.dark .platform-handle { color: #e44; }
+  body.dark .header-controls button { border-color: #444; color: #aaa; }
+  body.dark .header-controls button:hover { background: #222; border-color: #666; }
+  body.dark .header-controls button.active { background: #ddd; color: #111; border-color: #ddd; }
+  body.dark .live-badge { color: #555; }
+  body.dark .counter-iframe-wrap iframe {
+    filter: invert(1) hue-rotate(180deg);
+    opacity: 0.85;
+  }
+  body.dark .tiktok-icon { fill: #ccc; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .platform-grid { grid-template-columns: 1fr; }
+    .platform-col { min-height: auto; border-right: none; border-bottom: 1px solid #e0e0e0; }
+    body.dark .platform-col { border-bottom-color: #2a2a2a; }
+    .header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <a href="#" class="site-name" onclick="location.reload(); return false;">The Board</a>
+    <span class="tagline">Social Metrics</span>
+  </div>
+  <div class="header-controls">
+    <button onclick="toggleDark()" id="darkBtn">Dark</button>
+    <button onclick="location.reload()">↻ Refresh</button>
+    <span class="last-updated" id="lastUpdated"></span>
+  </div>
+</div>
+
+<div class="platform-grid">
+
+  <!-- INSTAGRAM -->
+  <div class="platform-col">
+    <div class="platform-header">
+      <div class="platform-header-left">
+        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span class="platform-name">Instagram</span>
+      </div>
+      <a href="https://www.instagram.com/thedylanschmidt" target="_blank" class="platform-handle">@thedylanschmidt</a>
+    </div>
+    <div class="counter-section">
+      <div class="counter-iframe-wrap">
+        <iframe src="https://mixerno.space/embed/instagram-user-counter/thedylanschmidt" loading="lazy"></iframe>
+      </div>
+      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+    </div>
+  </div>
+
+  <!-- TIKTOK -->
+  <div class="platform-col">
+    <div class="platform-header">
+      <div class="platform-header-left">
+        <svg class="platform-icon tiktok-icon" viewBox="0 0 24 24" fill="#222">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52V6.84a4.84 4.84 0 01-1-.15z"/>
+        </svg>
+        <span class="platform-name">TikTok</span>
+      </div>
+      <a href="https://www.tiktok.com/@thedylanschmidt" target="_blank" class="platform-handle">@thedylanschmidt</a>
+    </div>
+    <div class="counter-section">
+      <div class="counter-iframe-wrap">
+        <iframe src="https://mixerno.space/embed/tiktok-user-counter/thedylanschmidt" loading="lazy"></iframe>
+      </div>
+      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+    </div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div class="platform-col">
+    <div class="platform-header">
+      <div class="platform-header-left">
+        <svg class="platform-icon" viewBox="0 0 24 24" fill="#FF0000">
+          <path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/>
+        </svg>
+        <span class="platform-name">YouTube</span>
+      </div>
+      <a href="https://www.youtube.com/channel/UCCAW1leDXKWsjMhrMCW4JRw" target="_blank" class="platform-handle">Dylan Schmidt</a>
+    </div>
+    <div class="counter-section">
+      <div class="counter-iframe-wrap">
+        <iframe src="https://mixerno.space/embed/youtube-channel-counter/UCCAW1leDXKWsjMhrMCW4JRw" loading="lazy"></iframe>
+      </div>
+      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('darkBtn');
+  btn.classList.toggle('active');
+  btn.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+  localStorage.setItem('theboard-dark', document.body.classList.contains('dark'));
+}
+
+(function init() {
+  if (localStorage.getItem('theboard-dark') === 'true') {
+    document.body.classList.add('dark');
+    document.getElementById('darkBtn').classList.add('active');
+    document.getElementById('darkBtn').textContent = 'Light';
+  }
+  document.getElementById('lastUpdated').textContent =
+    'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+})();
+</script>
+
+</body>
+</html>
