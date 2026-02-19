@@ -200,9 +200,8 @@ function renderInstagram(data) {
   const col = document.getElementById('col-instagram');
   const hdr = col.querySelector('.platform-header');
   if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
-  const d=data.data, t=d.statistics?.total||{}, g=d.statistics?.growth?.followers||{}, gr=d.misc?.grade||{};
+  const d=data.data, t=d.statistics?.total||{}, g=d.statistics?.growth?.followers||{};
   let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.followers)}</div><div class="hero-label">Followers</div></div>`;
-  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
   h+=`<div class="section-label">Growth</div><ul class="stats-list">
     <li class="stat-row"><span class="stat-label">Today</span><span class="stat-value ${gc(g['1'])}">${fmtGrowth(g['1'])}</span></li>
     <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(g['7'])}">${fmtGrowth(g['7'])}</span></li>
@@ -219,12 +218,33 @@ function renderTikTok(data) {
   const col = document.getElementById('col-tiktok');
   const hdr = col.querySelector('.platform-header');
   if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
-  const d=data.data, t=d.statistics?.total||{}, gr=d.misc?.grade||{};
+  const d=data.data, t=d.statistics?.total||{}, daily=d.daily||[];
   let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.followers)}</div><div class="hero-label">Followers</div></div>`;
-  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
-  h+=`<div class="section-label">Stats</div><ul class="stats-list">
+  // Calculate growth from daily data if available
+  const len = daily.length;
+  let g1=null,g7=null,g14=null,g30=null;
+  if(len>=2) g1 = daily[len-1].followers - daily[len-2].followers;
+  if(len>=8) g7 = daily[len-1].followers - daily[len-8].followers;
+  if(len>=15) g14 = daily[len-1].followers - daily[len-15].followers;
+  if(len>=31) g30 = daily[len-1].followers - daily[len-31].followers;
+  h+=`<div class="section-label">Follower Growth</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Today</span><span class="stat-value ${gc(g1)}">${fmtGrowth(g1)}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(g7)}">${fmtGrowth(g7)}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 14d</span><span class="stat-value ${gc(g14)}">${fmtGrowth(g14)}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 30d</span><span class="stat-value ${gc(g30)}">${fmtGrowth(g30)}</span></li>
+  </ul>`;
+  // Calculate likes growth from daily data
+  let l7=null,l14=null,l30=null;
+  if(len>=8) l7 = daily[len-1].likes - daily[len-8].likes;
+  if(len>=15) l14 = daily[len-1].likes - daily[len-15].likes;
+  if(len>=31) l30 = daily[len-1].likes - daily[len-31].likes;
+  h+=`<div class="section-label">Likes Growth</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(l7)}">${fmtGrowth(l7)}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 14d</span><span class="stat-value ${gc(l14)}">${fmtGrowth(l14)}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 30d</span><span class="stat-value ${gc(l30)}">${fmtGrowth(l30)}</span></li>
+  </ul>`;
+  h+=`<div class="section-label">Totals</div><ul class="stats-list">
     <li class="stat-row"><span class="stat-label">Total Likes</span><span class="stat-value">${fmt(t.likes)}</span></li>
-    <li class="stat-row"><span class="stat-label">Uploads</span><span class="stat-value">${fmt(t.uploads)}</span></li>
     <li class="stat-row"><span class="stat-label">Following</span><span class="stat-value">${fmt(t.following)}</span></li>
   </ul>`;
   col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend',h);
@@ -234,9 +254,8 @@ function renderYouTube(data) {
   const col = document.getElementById('col-youtube');
   const hdr = col.querySelector('.platform-header');
   if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
-  const d=data.data, t=d.statistics?.total||{}, sg=d.statistics?.growth?.subs||{}, vg=d.statistics?.growth?.vidviews||{}, gr=d.misc?.grade||{};
+  const d=data.data, t=d.statistics?.total||{}, sg=d.statistics?.growth?.subs||{}, vg=d.statistics?.growth?.vidviews||{};
   let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.subscribers)}</div><div class="hero-label">Subscribers</div></div>`;
-  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
   h+=`<div class="section-label">Subscriber Growth</div><ul class="stats-list">
     <li class="stat-row"><span class="stat-label">Today</span><span class="stat-value ${gc(sg['1'])}">${fmtGrowth(sg['1'])}</span></li>
     <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(sg['7'])}">${fmtGrowth(sg['7'])}</span></li>
@@ -251,7 +270,6 @@ function renderYouTube(data) {
   </ul>`;
   h+=`<div class="section-label">Totals</div><ul class="stats-list">
     <li class="stat-row"><span class="stat-label">Total Views</span><span class="stat-value">${fmt(t.views)}</span></li>
-    <li class="stat-row"><span class="stat-label">Uploads</span><span class="stat-value">${fmt(t.uploads)}</span></li>
   </ul>`;
   col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend',h);
 }
