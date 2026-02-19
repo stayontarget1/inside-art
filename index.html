@@ -18,7 +18,6 @@
     min-height: 100vh;
   }
 
-  /* ── Header ── */
   .header {
     border-bottom: 2px solid #111;
     padding: 8px 12px;
@@ -29,165 +28,68 @@
     gap: 6px;
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .header-left { display: flex; align-items: center; gap: 10px; }
 
   .site-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #c00;
-    text-decoration: none;
-    letter-spacing: -0.5px;
+    font-size: 18px; font-weight: 700; color: #c00;
+    text-decoration: none; letter-spacing: -0.5px;
   }
-
   .site-name:hover { text-decoration: underline; }
 
-  .tagline {
-    font-size: 11px;
-    color: #888;
-    font-style: italic;
-  }
+  .tagline { font-size: 11px; color: #888; font-style: italic; }
 
-  .header-controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  .header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
   .header-controls button {
-    background: none;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 3px 8px;
-    font-size: 11px;
-    cursor: pointer;
-    color: #555;
+    background: none; border: 1px solid #ccc; border-radius: 3px;
+    padding: 3px 8px; font-size: 11px; cursor: pointer; color: #555;
     transition: all 0.15s;
   }
+  .header-controls button:hover { background: #f0f0f0; border-color: #999; }
+  .header-controls button.active { background: #111; color: #fff; border-color: #111; }
 
-  .header-controls button:hover {
-    background: #f0f0f0;
-    border-color: #999;
-  }
+  .last-updated { font-size: 10px; color: #aaa; }
 
-  .header-controls button.active {
-    background: #111;
-    color: #fff;
-    border-color: #111;
-  }
+  .platform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
 
-  .last-updated {
-    font-size: 10px;
-    color: #aaa;
-  }
-
-  /* ── Platform Grid ── */
-  .platform-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-  }
-
-  /* ── Platform Column ── */
-  .platform-col {
-    border-right: 1px solid #e0e0e0;
-    min-height: calc(100vh - 50px);
-  }
-
+  .platform-col { border-right: 1px solid #e0e0e0; min-height: calc(100vh - 50px); }
   .platform-col:last-child { border-right: none; }
 
   .platform-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 12px;
-    background: #fafafa;
-    border-bottom: 1px solid #e0e0e0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 12px; background: #fafafa; border-bottom: 1px solid #e0e0e0;
+    position: sticky; top: 0; z-index: 10;
   }
-
-  .platform-header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .platform-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.8;
-  }
-
-  .platform-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #111;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-
-  .platform-handle {
-    font-size: 10px;
-    color: #c00;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
+  .platform-header-left { display: flex; align-items: center; gap: 8px; }
+  .platform-icon { width: 16px; height: 16px; opacity: 0.8; }
+  .platform-name { font-size: 13px; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 0.3px; }
+  .platform-handle { font-size: 10px; color: #c00; text-decoration: none; font-weight: 600; }
   .platform-handle:hover { text-decoration: underline; }
 
-  /* ── Live Counter ── */
-  .counter-section {
-    position: relative;
-    overflow: hidden;
+  .hero-stat { padding: 20px 12px; text-align: center; border-bottom: 1px solid #e0e0e0; }
+  .hero-number { font-size: 42px; font-weight: 700; color: #111; letter-spacing: -1px; font-variant-numeric: tabular-nums; line-height: 1; }
+  .hero-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .grade-row { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid #e0e0e0; }
+  .grade-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; font-size: 14px; font-weight: 700; color: #fff; }
+  .grade-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .stats-list { list-style: none; padding: 0; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .stat-row:last-child { border-bottom: 1px solid #e0e0e0; }
+  .stat-label { color: #888; font-size: 11px; }
+  .stat-value { color: #222; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat-value.positive { color: #1a8c3a; }
+  .stat-value.negative { color: #c00; }
+  .stat-value.neutral { color: #888; }
+
+  .section-label {
+    padding: 5px 12px; background: #f5f5f5; border-bottom: 1px solid #e0e0e0;
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #999;
   }
 
-  .counter-iframe-wrap {
-    width: 100%;
-    height: 100px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .counter-iframe-wrap iframe {
-    border: none;
-    width: 100%;
-    height: 100%;
-  }
-
-  .live-badge {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #aaa;
-    pointer-events: none;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .live-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #34a853;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+  .loading-state { padding: 30px 12px; text-align: center; color: #bbb; font-size: 11px; font-style: italic; }
+  .error-state { padding: 30px 12px; text-align: center; color: #c00; font-size: 11px; }
 
   /* ── Dark Mode ── */
   body.dark { background: #111; color: #ccc; }
@@ -197,22 +99,27 @@
   body.dark .platform-header { background: #1a1a1a; border-bottom-color: #2a2a2a; }
   body.dark .platform-name { color: #ddd; }
   body.dark .platform-handle { color: #e44; }
+  body.dark .hero-stat { border-bottom-color: #2a2a2a; }
+  body.dark .hero-number { color: #eee; }
+  body.dark .grade-row { border-bottom-color: #2a2a2a; }
+  body.dark .section-label { background: #1a1a1a; border-bottom-color: #2a2a2a; color: #555; }
+  body.dark .stat-row { border-bottom-color: #1e1e1e; }
+  body.dark .stat-row:last-child { border-bottom-color: #2a2a2a; }
+  body.dark .stat-label { color: #666; }
+  body.dark .stat-value { color: #bbb; }
+  body.dark .stat-value.positive { color: #34a853; }
+  body.dark .stat-value.negative { color: #e44; }
   body.dark .header-controls button { border-color: #444; color: #aaa; }
   body.dark .header-controls button:hover { background: #222; border-color: #666; }
   body.dark .header-controls button.active { background: #ddd; color: #111; border-color: #ddd; }
-  body.dark .live-badge { color: #555; }
-  body.dark .counter-iframe-wrap iframe {
-    filter: invert(1) hue-rotate(180deg);
-    opacity: 0.85;
-  }
   body.dark .tiktok-icon { fill: #ccc; }
 
-  /* ── Responsive ── */
   @media (max-width: 768px) {
     .platform-grid { grid-template-columns: 1fr; }
     .platform-col { min-height: auto; border-right: none; border-bottom: 1px solid #e0e0e0; }
     body.dark .platform-col { border-bottom-color: #2a2a2a; }
     .header { flex-direction: column; align-items: flex-start; }
+    .hero-number { font-size: 36px; }
   }
 </style>
 </head>
@@ -231,69 +138,140 @@
 </div>
 
 <div class="platform-grid">
-
-  <!-- INSTAGRAM -->
-  <div class="platform-col">
+  <div class="platform-col" id="col-instagram">
     <div class="platform-header">
       <div class="platform-header-left">
-        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
+        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         <span class="platform-name">Instagram</span>
       </div>
       <a href="https://www.instagram.com/thedylanschmidt" target="_blank" class="platform-handle">@thedylanschmidt</a>
     </div>
-    <div class="counter-section">
-      <div class="counter-iframe-wrap">
-        <iframe src="https://mixerno.space/embed/instagram-user-counter/thedylanschmidt" loading="lazy"></iframe>
-      </div>
-      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
-    </div>
+    <div class="loading-state">Loading…</div>
   </div>
 
-  <!-- TIKTOK -->
-  <div class="platform-col">
+  <div class="platform-col" id="col-tiktok">
     <div class="platform-header">
       <div class="platform-header-left">
-        <svg class="platform-icon tiktok-icon" viewBox="0 0 24 24" fill="#222">
-          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52V6.84a4.84 4.84 0 01-1-.15z"/>
-        </svg>
+        <svg class="platform-icon tiktok-icon" viewBox="0 0 24 24" fill="#222"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52V6.84a4.84 4.84 0 01-1-.15z"/></svg>
         <span class="platform-name">TikTok</span>
       </div>
       <a href="https://www.tiktok.com/@thedylanschmidt" target="_blank" class="platform-handle">@thedylanschmidt</a>
     </div>
-    <div class="counter-section">
-      <div class="counter-iframe-wrap">
-        <iframe src="https://mixerno.space/embed/tiktok-user-counter/thedylanschmidt" loading="lazy"></iframe>
-      </div>
-      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
-    </div>
+    <div class="loading-state">Loading…</div>
   </div>
 
-  <!-- YOUTUBE -->
-  <div class="platform-col">
+  <div class="platform-col" id="col-youtube">
     <div class="platform-header">
       <div class="platform-header-left">
-        <svg class="platform-icon" viewBox="0 0 24 24" fill="#FF0000">
-          <path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/>
-        </svg>
+        <svg class="platform-icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
         <span class="platform-name">YouTube</span>
       </div>
       <a href="https://www.youtube.com/channel/UCCAW1leDXKWsjMhrMCW4JRw" target="_blank" class="platform-handle">Dylan Schmidt</a>
     </div>
-    <div class="counter-section">
-      <div class="counter-iframe-wrap">
-        <iframe src="https://mixerno.space/embed/youtube-channel-counter/UCCAW1leDXKWsjMhrMCW4JRw" loading="lazy"></iframe>
-      </div>
-      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
-    </div>
+    <div class="loading-state">Loading…</div>
   </div>
-
 </div>
 
 <script>
+// ═══════════════════════════════════════════
+// IMPORTANT: Replace this with your Cloudflare Worker URL
+// ═══════════════════════════════════════════
+const WORKER_URL = 'https://the-board.large-lake4645.workers.dev/stats';
+
+function fmt(n) {
+  if (n == null) return '—';
+  return Number(n).toLocaleString();
+}
+function fmtGrowth(n) {
+  if (n == null) return '—';
+  const num = Number(n);
+  return num > 0 ? `+${num.toLocaleString()}` : num === 0 ? '0' : num.toLocaleString();
+}
+function gc(n) {
+  if (n == null) return 'neutral';
+  return Number(n) > 0 ? 'positive' : Number(n) < 0 ? 'negative' : 'neutral';
+}
+function gradeColor(c) {
+  const m = { red:'#c00', orange:'#e67300', yellow:'#f9ab00', green:'#1a8c3a', blue:'#1a6dcc', purple:'#7b2d8e' };
+  return m[(c||'').toLowerCase()] || '#888';
+}
+
+function renderInstagram(data) {
+  const col = document.getElementById('col-instagram');
+  const hdr = col.querySelector('.platform-header');
+  if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
+  const d=data.data, t=d.statistics?.total||{}, g=d.statistics?.growth?.followers||{}, gr=d.misc?.grade||{};
+  let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.followers)}</div><div class="hero-label">Followers</div></div>`;
+  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
+  h+=`<div class="section-label">Growth</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Today</span><span class="stat-value ${gc(g['1'])}">${fmtGrowth(g['1'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(g['7'])}">${fmtGrowth(g['7'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 14d</span><span class="stat-value ${gc(g['14'])}">${fmtGrowth(g['14'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 30d</span><span class="stat-value ${gc(g['30'])}">${fmtGrowth(g['30'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 90d</span><span class="stat-value ${gc(g['90'])}">${fmtGrowth(g['90'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 365d</span><span class="stat-value ${gc(g['365'])}">${fmtGrowth(g['365'])}</span></li>
+  </ul>`;
+  if(t.views) h+=`<div class="section-label">Totals</div><ul class="stats-list"><li class="stat-row"><span class="stat-label">Total Views</span><span class="stat-value">${fmt(t.views)}</span></li></ul>`;
+  col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend',h);
+}
+
+function renderTikTok(data) {
+  const col = document.getElementById('col-tiktok');
+  const hdr = col.querySelector('.platform-header');
+  if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
+  const d=data.data, t=d.statistics?.total||{}, gr=d.misc?.grade||{};
+  let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.followers)}</div><div class="hero-label">Followers</div></div>`;
+  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
+  h+=`<div class="section-label">Stats</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Total Likes</span><span class="stat-value">${fmt(t.likes)}</span></li>
+    <li class="stat-row"><span class="stat-label">Uploads</span><span class="stat-value">${fmt(t.uploads)}</span></li>
+    <li class="stat-row"><span class="stat-label">Following</span><span class="stat-value">${fmt(t.following)}</span></li>
+  </ul>`;
+  col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend',h);
+}
+
+function renderYouTube(data) {
+  const col = document.getElementById('col-youtube');
+  const hdr = col.querySelector('.platform-header');
+  if (data.error || !data.data) { col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend','<div class="error-state">Failed to load</div>'); return; }
+  const d=data.data, t=d.statistics?.total||{}, sg=d.statistics?.growth?.subs||{}, vg=d.statistics?.growth?.vidviews||{}, gr=d.misc?.grade||{};
+  let h=`<div class="hero-stat"><div class="hero-number">${fmt(t.subscribers)}</div><div class="hero-label">Subscribers</div></div>`;
+  if(gr.grade) h+=`<div class="grade-row"><span class="grade-badge" style="background:${gradeColor(gr.color)}">${gr.grade}</span><span class="grade-label">SB Grade</span></div>`;
+  h+=`<div class="section-label">Subscriber Growth</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Today</span><span class="stat-value ${gc(sg['1'])}">${fmtGrowth(sg['1'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(sg['7'])}">${fmtGrowth(sg['7'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 14d</span><span class="stat-value ${gc(sg['14'])}">${fmtGrowth(sg['14'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 30d</span><span class="stat-value ${gc(sg['30'])}">${fmtGrowth(sg['30'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 90d</span><span class="stat-value ${gc(sg['90'])}">${fmtGrowth(sg['90'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 365d</span><span class="stat-value ${gc(sg['365'])}">${fmtGrowth(sg['365'])}</span></li>
+  </ul>`;
+  h+=`<div class="section-label">View Growth</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Last 7d</span><span class="stat-value ${gc(vg['7'])}">${fmtGrowth(vg['7'])}</span></li>
+    <li class="stat-row"><span class="stat-label">Last 30d</span><span class="stat-value ${gc(vg['30'])}">${fmtGrowth(vg['30'])}</span></li>
+  </ul>`;
+  h+=`<div class="section-label">Totals</div><ul class="stats-list">
+    <li class="stat-row"><span class="stat-label">Total Views</span><span class="stat-value">${fmt(t.views)}</span></li>
+    <li class="stat-row"><span class="stat-label">Uploads</span><span class="stat-value">${fmt(t.uploads)}</span></li>
+  </ul>`;
+  col.innerHTML=''; col.appendChild(hdr); col.insertAdjacentHTML('beforeend',h);
+}
+
+async function loadData() {
+  try {
+    const res = await fetch(WORKER_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json.profiles?.instagram) renderInstagram(json.profiles.instagram);
+    if (json.profiles?.tiktok) renderTikTok(json.profiles.tiktok);
+    if (json.profiles?.youtube) renderYouTube(json.profiles.youtube);
+    const updated = json.updated ? new Date(json.updated) : new Date();
+    document.getElementById('lastUpdated').textContent = 'Data: ' + updated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  } catch (err) {
+    console.error('Load error:', err);
+    document.querySelectorAll('.loading-state').forEach(el => { el.className='error-state'; el.textContent='Failed to connect'; });
+  }
+}
+
 function toggleDark() {
   document.body.classList.toggle('dark');
   const btn = document.getElementById('darkBtn');
@@ -308,10 +286,8 @@ function toggleDark() {
     document.getElementById('darkBtn').classList.add('active');
     document.getElementById('darkBtn').textContent = 'Light';
   }
-  document.getElementById('lastUpdated').textContent =
-    'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  loadData();
 })();
 </script>
-
 </body>
 </html>
